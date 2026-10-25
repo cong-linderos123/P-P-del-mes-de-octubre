@@ -1,4 +1,4 @@
-﻿```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -400,6 +400,7 @@ function datosHoraChile() {
   return resultado;
 }
 
+/* DESDE LAS 13:00, USAR LA FECHA DE MAÑANA */
 function fechaProgramaIso() {
   const ahora = datosHoraChile();
 
@@ -409,7 +410,7 @@ function fechaProgramaIso() {
     Number(ahora.day)
   ));
 
-  if (Number(ahora.hour) >= 18) {
+  if (Number(ahora.hour) >= 13) {
     fecha.setUTCDate(fecha.getUTCDate() + 1);
   }
 
@@ -421,7 +422,7 @@ function fechaProgramaIso() {
 }
 
 function esProgramaDeManana() {
-  return Number(datosHoraChile().hour) >= 18;
+  return Number(datosHoraChile().hour) >= 13;
 }
 
 function fmtDate(iso) {
@@ -510,7 +511,7 @@ function renderPrograma() {
 
 renderPrograma();
 
-/* ACTUALIZAR EL PROGRAMA AUTOMÁTICAMENTE */
+/* ACTUALIZAR AUTOMÁTICAMENTE CADA 30 SEGUNDOS */
 setInterval(renderPrograma, 30000);
 
 /* LECTOR DE VOZ */
@@ -601,7 +602,6 @@ function hablar(texto) {
     console.error('Error de lectura por voz:', evento.error);
   };
 
-  /* Iniciar la lectura directamente al pulsar el botón */
   speechSynthesis.cancel();
   speechSynthesis.speak(mensaje);
 }
